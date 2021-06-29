@@ -44,10 +44,12 @@ func main() {
 	topicArn := ""
 	alarmName := "testing-alarm"
 	alarmDescription := "you can just chill!"
+	verbose := false
 
 	flag.StringVar(&topicArn, "topic", "", "arn to the sns topic to send the alarm to")
 	flag.StringVar(&alarmName, "name", alarmName, "the alarm name to send")
 	flag.StringVar(&alarmDescription, "description", alarmDescription, "the alarm description to send")
+	flag.BoolVar(&verbose, "verbose", verbose, "print the subject and body being sent to sns")
 	flag.Parse()
 
 	partsArn := strings.Split(topicArn, ":")
@@ -67,6 +69,12 @@ func main() {
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Printf("error: %s\n", err.Error())
+	}
+
+	if verbose {
+		fmt.Printf("Topic:\n%s\n\n", topicArn)
+		fmt.Printf("Subject:\n%s\n\n", subject)
+		fmt.Printf("Body:\n%s\n\n", body)
 	}
 
 	client := sns.NewFromConfig(cfg)

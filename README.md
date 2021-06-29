@@ -12,6 +12,8 @@ Usage of ./sns-cwalarm:
         the alarm name to send (default "testing-alarm")
   -topic string
         arn to the sns topic to send the alarm to
+  -verbose
+        print the subject and body being sent to sns
 ```
 
 ## Build
